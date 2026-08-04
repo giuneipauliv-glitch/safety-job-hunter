@@ -1,0 +1,2 @@
+# GitHub Actions 云端运行依赖（本地若用 Playwright 后端也适用）
+playwright>=1.44

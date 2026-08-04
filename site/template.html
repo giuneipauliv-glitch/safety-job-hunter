@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安全工程岗位雷达 · 每日更新</title>
+<style>
+:root{
+  --bg:#0d1117; --bg2:#11161d; --card:#161b22; --card2:#1c2330;
+  --border:#2d333b; --text:#e6edf3; --muted:#8b949e;
+  --accent:#ff7a18; --accent-soft:rgba(255,122,24,.14);
+  --blue:#2f81f7; --blue-soft:rgba(47,129,247,.14);
+  --green:#3fb950; --green-soft:rgba(63,185,80,.14);
+  --red:#f85149; --red-soft:rgba(248,81,73,.14);
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:radial-gradient(1200px 500px at 20% -10%, #1a2332 0%, var(--bg) 55%) fixed;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.6; min-height:100vh;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1120px;margin:0 auto;padding:0 18px 60px}
+
+/* ===== Header ===== */
+header{padding:34px 0 8px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-icon{
+  width:52px;height:52px;border-radius:14px;flex:none;
+  background:linear-gradient(135deg,#ff7a18,#ff9a4d);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;box-shadow:0 6px 24px rgba(255,122,24,.35);
+}
+.logo h1{font-size:26px;letter-spacing:.5px}
+.logo p{color:var(--muted);font-size:13px;margin-top:2px}
+.header-right{text-align:right;font-size:13px;color:var(--muted)}
+.header-right .upd{color:var(--accent);font-weight:600}
+
+/* ===== Stats ===== */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.stat .num{font-size:24px;font-weight:700;color:var(--text)}
+.stat .num.orange{color:var(--accent)}
+.stat .num.green{color:var(--green)}
+.stat .num.blue{color:var(--blue)}
+.stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* ===== Filters ===== */
+.filters{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.search-box{flex:1 1 220px;position:relative}
+.search-box input{
+  width:100%;padding:9px 14px 9px 36px;border-radius:10px;
+  background:var(--bg);border:1px solid var(--border);color:var(--text);
+  font-size:14px;outline:none;transition:border .2s;
+}
+.search-box input:focus{border-color:var(--accent)}
+.search-box::before{content:"🔍";position:absolute;left:11px;top:8px;font-size:14px;opacity:.6}
+select{
+  padding:9px 12px;border-radius:10px;background:var(--bg);
+  border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;cursor:pointer;
+}
+select:hover{border-color:var(--accent)}
+.toggles{display:flex;gap:6px;flex-wrap:wrap}
+.tog{
+  padding:7px 12px;border-radius:999px;font-size:12.5px;cursor:pointer;user-select:none;
+  border:1px solid var(--border);color:var(--muted);background:var(--bg);transition:all .15s;
+}
+.tog.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.tog.on.green{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.tog.on.blue{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+.result-info{font-size:12.5px;color:var(--muted);padding:0 4px 10px}
+
+/* ===== Job cards ===== */
+.job{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:10px;transition:border-color .15s, transform .15s;
+}
+.job:hover{border-color:#3d444d;transform:translateY(-1px)}
+.job-top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.job-title{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.job-title a{color:var(--text)}
+.job-title a:hover{color:var(--accent);text-decoration:none}
+.badge{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.b-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.b-campus{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.b-intern{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+.b-src{background:var(--card2);color:var(--muted);border:1px solid var(--border)}
+.b-cert{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+.b-out{background:var(--red-soft);color:var(--red);border:1px solid var(--red)}
+.b-soe{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue)}
+.salary{font-size:19px;font-weight:800;color:var(--accent);white-space:nowrap}
+.salary.muted{color:var(--muted);font-weight:600}
+.company{margin-top:6px;font-size:13.5px;color:var(--muted)}
+.company a{color:var(--muted)}
+.company a:hover{color:var(--blue)}
+.company .meta{opacity:.75;margin-left:6px}
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.m-chip{
+  font-size:12px;padding:3px 10px;border-radius:8px;
+  background:var(--bg2);border:1px solid var(--border);color:var(--text);
+}
+.m-chip .k{color:var(--muted);margin-right:4px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:11.5px;padding:2px 9px;border-radius:6px;background:var(--card2);color:var(--muted)}
+.tag.cert{background:var(--accent-soft);color:var(--accent)}
+.job-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px}
+.seen{font-size:11.5px;color:var(--muted)}
+.apply{
+  display:inline-block;padding:7px 18px;border-radius:9px;font-size:13px;font-weight:600;
+  background:linear-gradient(135deg,#ff7a18,#ff9a4d);color:#fff;transition:filter .15s;
+}
+.apply:hover{filter:brightness(1.1);text-decoration:none}
+.empty{text-align:center;color:var(--muted);padding:60px 0;font-size:15px}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:6px;margin:28px 0 14px;border-bottom:1px solid var(--border);padding-bottom:10px}
+.tab{
+  padding:8px 20px;border-radius:10px;font-size:14px;cursor:pointer;color:var(--muted);
+  background:transparent;border:1px solid transparent;user-select:none;
+}
+.tab.on{color:var(--text);background:var(--card);border-color:var(--border);font-weight:600}
+.tab .cnt{color:var(--accent);font-weight:700;margin-left:4px}
+#tab-guide{display:none}
+
+/* ===== Guide ===== */
+.g-notice{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.g-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column}
+.g-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.g-icon{font-size:24px}
+.g-head h3{font-size:16px}
+.g-badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600}
+.g-row{display:flex;gap:10px;padding:7px 0;border-top:1px dashed var(--border);font-size:13px}
+.g-k{flex:none;min-width:62px;color:var(--accent);font-weight:600}
+.g-v{color:var(--text)}
+
+footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px;line-height:2}
+footer .src{color:var(--muted)}
+@media (max-width:640px){
+  .logo h1{font-size:21px}
+  .salary{font-size:16px}
+  .job-title{font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⛑️</div>
+      <div>
+        <h1>安全工程岗位雷达</h1>
+        <p>全国安全类岗位每日自动更新 · 学历/地点/要求/待遇/投递一站看齐</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div>数据更新：<span class="upd" id="upd-time">--</span></div>
+      <div>来源：智联招聘公开搜索页</div>
+    </div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs">
+    <div class="tab on" data-tab="jobs" id="tab-btn-jobs">📋 岗位雷达 <span class="cnt" id="cnt-jobs">0</span></div>
+    <div class="tab" data-tab="guide" id="tab-btn-guide">🎓 报考指南</div>
+  </div>
+
+  <div id="tab-jobs">
+    <div class="filters">
+      <div class="search-box"><input id="q" type="text" placeholder="搜索职位 / 公司 / 城市 / 要求…"></div>
+      <select id="f-type">
+        <option value="">全部岗位类型</option>
+        <option value="校招">🎓 校招</option>
+        <option value="社招">💼 社招</option>
+        <option value="实习">🧪 实习</option>
+      </select>
+      <select id="f-city"><option value="">全部城市</option></select>
+      <select id="f-edu">
+        <option value="">全部学历</option>
+        <option value="4">本科及以上</option>
+        <option value="3">大专及以上</option>
+        <option value="0">学历不限</option>
+      </select>
+      <select id="f-exp">
+        <option value="">全部经验</option>
+        <option value="0">经验不限</option>
+        <option value="1">应届生</option>
+        <option value="2">1-3年</option>
+        <option value="3">3-5年</option>
+        <option value="4">5-10年</option>
+        <option value="5">10年以上</option>
+      </select>
+      <select id="f-sal">
+        <option value="">全部薪资</option>
+        <option value="0-5">5k以下</option>
+        <option value="5-10">5k-10k</option>
+        <option value="10-15">10k-15k</option>
+        <option value="15-20">15k-20k</option>
+        <option value="20-999">20k以上</option>
+      </select>
+      <select id="f-sort">
+        <option value="new">排序：最新发布</option>
+        <option value="sal">排序：薪资从高到低</option>
+      </select>
+      <div class="toggles">
+        <span class="tog green" data-k="onlyNew">🆕 今日新增</span>
+        <span class="tog" data-k="onlyCert">📜 需证书</span>
+        <span class="tog red" data-k="onlyOut">🌍 外派岗</span>
+        <span class="tog blue" data-k="onlySOE">🏢 国企</span>
+      </div>
+    </div>
+    <div class="result-info" id="result-info"></div>
+    <div id="list"></div>
+  </div>
+
+  <div id="tab-guide">
+    <!--__GUIDE__-->
+  </div>
+
+  <footer>
+    <div class="src">数据来源：智联招聘公开搜索页（安全工程师/注安/EHS/消防等 22 个关键词，全国范围）</div>
+    <div>仅供求职筛选参考，投递前请至招聘方官方页面核实 · 本页数据每日自动更新</div>
+    <div>🛡️ 安全工程岗位雷达 · 自动构建于 <span id="foot-time">--</span></div>
+  </footer>
+</div>
+
+<script>
+window.__DATA__ = /*__DATA__*/;
+
+const data = window.__DATA__;
+const jobs = data.jobs || [];
+const meta = data.meta || {};
+const today = meta.updated_date || '';
+
+/* ---------- 统计 ---------- */
+(function renderStats(){
+  const cities = new Set(jobs.map(j=>j.city).filter(Boolean));
+  const certs = jobs.filter(j=>j.has_cert).length;
+  const nNew = jobs.filter(j=>j._is_new).length;
+  const nCampus = jobs.filter(j=>j.job_type==='校招').length;
+  document.getElementById('upd-time').textContent = meta.updated_at || '--';
+  document.getElementById('foot-time').textContent = meta.updated_at || '--';
+  document.getElementById('stats').innerHTML = [
+    ['总岗位', jobs.length, ''],
+    ['校招岗位', nCampus, 'orange'],
+    ['今日新增', nNew, 'green'],
+    ['覆盖城市', cities.size, 'blue'],
+    ['需证岗位', certs, ''],
+  ].map(s=>`<div class="stat"><div class="num ${s[2]}">${s[1]}</div><div class="lbl">${s[0]}</div></div>`).join('');
+  document.getElementById('cnt-jobs').textContent = jobs.length;
+})();
+
+/* ---------- 城市下拉 ---------- */
+(function renderCities(){
+  const m = {};
+  jobs.forEach(j=>{ if(j.city) m[j.city]=(m[j.city]||0)+1; });
+  const sel = document.getElementById('f-city');
+  Object.entries(m).sort((a,b)=>b[1]-a[1]).forEach(([c,n])=>{
+    const o = document.createElement('option');
+    o.value = c; o.textContent = `${c}（${n}）`;
+    sel.appendChild(o);
+  });
+})();
+
+/* ---------- 状态 ---------- */
+const state = {
+  q:'', type:'', city:'', edu:'', exp:'', sal:'', sort:'new',
+  onlyNew:false, onlyCert:false, onlyOut:false, onlySOE:false
+};
+
+/* ---------- 筛选与渲染 ---------- */
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function matchSal(j, range){
+  if(!range) return true;
+  const [lo,hi] = range.split('-').map(Number);
+  const s = j.salary;
+  if(!s) return false;
+  return s[0] >= lo && s[0] <= hi;
+}
+function applyFilters(){
+  const q = state.q.trim().toLowerCase();
+  let list = jobs.filter(j=>{
+    if(state.type && j.job_type !== state.type) return false;
+    if(state.city && j.city !== state.city) return false;
+    if(state.edu !== ''){
+      if(state.edu === '4' && j.edu_level < 4) return false;
+      if(state.edu === '3' && j.edu_level < 3) return false;
+      if(state.edu === '0' && j.edu_level !== 0) return false;
+    }
+    if(state.exp !== '' && j.exp_level !== Number(state.exp)) return false;
+    if(!matchSal(j, state.sal)) return false;
+    if(state.onlyNew && !j._is_new) return false;
+    if(state.onlyCert && !j.has_cert) return false;
+    if(state.onlyOut && !j.outsource) return false;
+    if(state.onlySOE && !(j.company_type||'').includes('国企')) return false;
+    if(q){
+      const hay = [j.title,j.company,j.city,j.location,j.industry,(j.tags||[]).join(' ')].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  if(state.sort === 'sal'){
+    list.sort((a,b)=> (b.salary?b.salary[0]:-1) - (a.salary?a.salary[0]:-1));
+  }
+  return list;
+}
+function render(){
+  const list = applyFilters();
+  document.getElementById('result-info').textContent =
+    `共 ${list.length} 个岗位` + (list.length ? `（今日新增 ${list.filter(j=>j._is_new).length}）` : '，换个条件试试');
+  const el = document.getElementById('list');
+  if(!list.length){ el.innerHTML = '<div class="empty">没有符合条件的岗位，放宽筛选条件试试</div>'; return; }
+  el.innerHTML = list.map(j=>{
+    const badges = [];
+    if(j.job_type==='校招') badges.push('<span class="badge b-campus">🎓 校招</span>');
+    if(j.job_type==='实习') badges.push('<span class="badge b-intern">🧪 实习</span>');
+    if(j._is_new) badges.push('<span class="badge b-new">🆕 今日新增</span>');
+    if(j.has_cert) badges.push('<span class="badge b-cert">📜 需证书</span>');
+    if(j.outsource) badges.push('<span class="badge b-out">🌍 外派岗</span>');
+    if((j.company_type||'').includes('国企')) badges.push('<span class="badge b-soe">🏢 国企</span>');
+    if(j.source && j.source!=='zhaopin') badges.push(`<span class="badge b-src">${esc(srcName(j.source))}</span>`);
+    const sal = j.salary ? `<span class="salary">${esc(friendlySal(j.salary_text, j.salary))}</span>`
+                         : '<span class="salary muted">面议</span>';
+    const chips = [];
+    if(j.education) chips.push(`<span class="m-chip"><span class="k">学历</span>${esc(j.education)}</span>`);
+    if(j.experience) chips.push(`<span class="m-chip"><span class="k">经验</span>${esc(j.experience)}</span>`);
+    if(j.location) chips.push(`<span class="m-chip"><span class="k">地点</span>${esc(j.location)}</span>`);
+    if(j.industry) chips.push(`<span class="m-chip"><span class="k">行业</span>${esc(j.industry)}</span>`);
+    const tags = (j.tags||[]).slice(0,12).map(t=>
+      `<span class="tag ${isCert(t)?'cert':''}">${esc(t)}</span>`).join('');
+    const companyMeta = [j.company_type, j.company_size].filter(Boolean).join(' · ');
+    return `<div class="job">
+      <div class="job-top">
+        <div>
+          <div class="job-title"><a href="${esc(j.link)}" target="_blank" rel="noopener">${esc(j.title)}</a>${badges.join('')}</div>
+          <div class="company"><a href="${esc(j.company_url||'#')}" target="_blank" rel="noopener">${esc(j.company||'—')}</a>${companyMeta?`<span class="meta">${esc(companyMeta)}</span>`:''}</div>
+        </div>
+        ${sal}
+      </div>
+      <div class="meta-row">${chips.join('')}</div>
+      ${tags?`<div class="tags">${tags}</div>`:''}
+      <div class="job-foot">
+        <span class="seen">发现于 ${esc(j.first_seen||'')}${j.first_seen!==j.last_seen?' · 更新于 '+esc(j.last_seen):''}${j.end_time?' · ⏰ 报名截止 '+esc(j.end_time):''} · 命中「${esc(j.keyword||'')}」</span>
+        <a class="apply" href="${esc(j.link)}" target="_blank" rel="noopener">查看并投递 →</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+const CERT_RE = /注册安全工程师|注安|安全评价师|安评师|安全员|消防|特种作业|安全管理资格/;
+function isCert(t){ return CERT_RE.test(t); }
+function srcName(s){ return ({iguopin:'国聘'})[s] || s; }
+function friendlySal(text, sal){
+  if(sal[0]>=10000 && sal[1]>=10000){
+    const f = v => v%10000===0 ? v/10000+'万' : (v/10000).toFixed(1)+'万';
+    return `${f(sal[0])}-${f(sal[1])}/月`;
+  }
+  return `${Math.round(sal[0]/1000)}k-${Math.round(sal[1]/1000)}k/月`;
+}
+
+/* ---------- 事件绑定 ---------- */
+document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; render(); });
+['f-type','f-city','f-edu','f-exp','f-sal','f-sort'].forEach(id=>{
+  document.getElementById(id).addEventListener('change', e=>{
+    const k = id.replace('f-','');
+    state[k] = e.target.value; render();
+  });
+});
+document.querySelectorAll('.tog').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    const k = t.dataset.k;
+    state[k] = !state[k];
+    t.classList.toggle('on', state[k]);
+    render();
+  });
+});
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    const which = t.dataset.tab;
+    document.getElementById('tab-jobs').style.display = which==='jobs'?'':'none';
+    document.getElementById('tab-guide').style.display = which==='guide'?'':'none';
+  });
+});
+
+render();
+</script>
+</body>
+</html>

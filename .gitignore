@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 运行产物（本地诊断日志忽略，数据与站点保留）
+logs/
+
+# 编辑器
+.vscode/
+.idea/
