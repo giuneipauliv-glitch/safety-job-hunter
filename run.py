@@ -30,7 +30,8 @@ import build_site  # noqa: E402
 
 def main():
     parser = argparse.ArgumentParser(description='安全工程招聘信息抓取')
-    parser.add_argument('--backend', default='playwright', choices=['playwright', 'chrome_dump'])
+    parser.add_argument('--backend', default='playwright',
+                        choices=['playwright', 'chrome_dump', 'playwright_headful'])
     parser.add_argument('--pages', type=int, default=PAGES_PER_KEYWORD)
     parser.add_argument('--keywords', default=None, help='逗号分隔，默认使用全部关键词')
     parser.add_argument('--interval', type=float, default=None, help='抓取间隔秒数(默认随机2-5)')
@@ -65,13 +66,22 @@ def main():
         return fetch_zhaopin(kws, pages, backend=args.backend, interval=interval,
                              progress=lambda m: print(f'  {m}'))
 
-    # 1) 智联主站（社招为主）
+    # 1) 智联主站（社招为主，headful 后端用单会话批量）
     if SOURCES.get('zhaopin', True):
         fresh = []
-        if core_kws:
-            fresh += run_zhaopin(core_kws, core_pages, '核心')
-        if extra_kws:
-            fresh += run_zhaopin(extra_kws, extra_pages, '扩展')
+        if args.backend == 'playwright_headful':
+            from src.fetch import fetch_all_headful
+            if core_kws:
+                fresh += fetch_all_headful(core_kws, core_pages, interval=interval,
+                                           progress=lambda m: print(f'  {m}'))
+            if extra_kws:
+                fresh += fetch_all_headful(extra_kws, extra_pages, interval=interval,
+                                           progress=lambda m: print(f'  {m}'))
+        else:
+            if core_kws:
+                fresh += run_zhaopin(core_kws, core_pages, '核心')
+            if extra_kws:
+                fresh += run_zhaopin(extra_kws, extra_pages, '扩展')
         print(f'[智联主站] 原始 {len(fresh)} 条')
         all_fresh.extend(fresh)
 

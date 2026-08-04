@@ -16,6 +16,9 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 VERIFY_MARKS = ['Security Verification', '人机验证', '访问验证', '滑动验证']
 
+# 登录态档案目录（用 login_zhaopin.py 登录一次后，抓取复用 Cookie）
+ZP_PROFILE = r'E:\work space\.tools\zp-profile'
+
 
 def is_verify_page(html: str) -> bool:
     if not html:
@@ -38,17 +41,27 @@ def _find_chrome() -> str:
     return None
 
 
-def fetch_chrome_dump(url: str, timeout: int = 90) -> str:
+def fetch_chrome_dump(url: str, timeout: int = 90, profile: str = None) -> str:
+    """调用系统 Chrome headless 渲染（带反检测伪装 + 登录态档案）"""
     chrome = _find_chrome()
     if not chrome:
         return None
-    import tempfile
-    profile = tempfile.mkdtemp(prefix='zhp_')
+    if profile is None:
+        profile = ZP_PROFILE
+    import os
+    os.makedirs(profile, exist_ok=True)
+    # 伪装 UA（去掉 HeadlessChrome 字样）+ 抹掉自动化标志
+    fake_ua = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+               '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36')
     cmd = [
         chrome, '--headless=new', '--disable-gpu', '--no-first-run',
         '--disable-extensions', '--disable-dev-shm-usage', '--no-sandbox',
+        '--disable-blink-features=AutomationControlled',
+        f'--user-agent={fake_ua}',
+        '--window-size=1366,900',
+        '--lang=zh-CN',
         f'--user-data-dir={profile}',
-        '--virtual-time-budget=15000',
+        '--virtual-time-budget=20000',
         '--dump-dom', url,
     ]
     try:
@@ -91,12 +104,102 @@ def fetch_playwright(url: str, timeout: int = 60000, headless: bool = True,
             return None
 
 
+def fetch_all_headful(keywords: list, pages: int, interval: tuple = (3, 6),
+                      progress=None) -> list:
+    """有头模式批量抓取（单浏览器会话循环，智联专用）"""
+    from config import ZHAOPIN_SOU_TEMPLATE
+    from src.parse import parse_page
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return []
+
+    all_jobs = []
+    with sync_playwright() as pw:
+        ctx = None
+        try:
+            ctx = pw.chromium.launch_persistent_context(
+                user_data_dir=ZP_PROFILE,
+                channel='chrome',
+                headless=False,
+                viewport={'width': 1366, 'height': 900},
+                locale='zh-CN',
+                args=['--disable-blink-features=AutomationControlled'],
+            )
+            page = ctx.pages[0] if ctx.pages else ctx.new_page()
+            for kw in keywords:
+                for page_no in range(1, pages + 1):
+                    url = ZHAOPIN_SOU_TEMPLATE.format(kw=quote(kw), page=page_no)
+                    try:
+                        page.goto(url, wait_until='domcontentloaded', timeout=45000)
+                        page.wait_for_timeout(5000)
+                        html = page.content()
+                    except Exception:
+                        html = None
+                    if html and not is_verify_page(html):
+                        jobs = parse_page(html)
+                        for j in jobs:
+                            if is_noise_title(j['title']):
+                                continue
+                            j['keyword'] = kw
+                            j['source'] = 'zhaopin'
+                            j['job_type'] = detect_job_type(j['title'])
+                        all_jobs.extend(jobs)
+                        if progress:
+                            progress(f'[{kw} p{page_no}] {len(jobs)} 条')
+                    else:
+                        if progress:
+                            progress(f'[{kw} p{page_no}] 被拦截')
+                    time.sleep(random.uniform(*interval))
+        finally:
+            try:
+                if ctx:
+                    ctx.close()
+            except Exception:
+                pass
+    return all_jobs
+
+
+def fetch_playwright_headful(url: str, timeout: int = 60000) -> str:
+    """有头模式 + 系统 Chrome + 登录态档案（最接近真实用户，智联专用）"""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return None
+    with sync_playwright() as pw:
+        ctx = None
+        try:
+            ctx = pw.chromium.launch_persistent_context(
+                user_data_dir=ZP_PROFILE,
+                channel='chrome',
+                headless=False,
+                viewport={'width': 1366, 'height': 900},
+                locale='zh-CN',
+                args=['--disable-blink-features=AutomationControlled'],
+            )
+            page = ctx.pages[0] if ctx.pages else ctx.new_page()
+            page.goto(url, wait_until='domcontentloaded', timeout=timeout)
+            page.wait_for_timeout(6000)
+            html = page.content()
+            ctx.close()
+            return html
+        except Exception:
+            try:
+                if ctx:
+                    ctx.close()
+            except Exception:
+                pass
+            return None
+
+
 def fetch_page(url: str, backend: str = 'playwright', retry: int = 3,
                interval: tuple = (2, 5)) -> str:
     """抓取单个 URL。验证页立即放弃（不重复耗超时）；网络错误才重试"""
     for attempt in range(retry):
         if backend == 'playwright':
             html = fetch_playwright(url)
+        elif backend == 'playwright_headful':
+            html = fetch_playwright_headful(url)
         else:
             html = fetch_chrome_dump(url)
         if html and not is_verify_page(html):
