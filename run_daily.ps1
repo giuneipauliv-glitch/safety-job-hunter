@@ -17,8 +17,8 @@ foreach ($c in @("C:\Program Files\HanaAgent\resources\git\mingw64\bin\git.exe",
                  "C:\Program Files\Git\cmd\git.exe")) { if (Test-Path $c) { $gitExe = $c; break } }
 if (-not $gitExe) { $gc = Get-Command git -ErrorAction SilentlyContinue; if ($gc) { $gitExe = $gc.Source } }
 
-Write-Host "=== STEP 1/3: 无头抓取（国聘/应届生网/化工英才网）==="
-& $py run.py --backend chrome_dump --sources iguopin,yjs,chern
+Write-Host "=== STEP 1/3: 无头抓取（国聘/应届生网）==="
+& $py run.py --backend chrome_dump --sources iguopin,yjs
 $code = $LASTEXITCODE
 
 Write-Host "=== STEP 2/3: 有头抓取智联（弹出 Chrome 属正常，跑完自动关）==="

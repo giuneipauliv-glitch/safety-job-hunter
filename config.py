@@ -43,12 +43,12 @@ SOURCES = {
     "zhaopin": True,      # 智联招聘主站（社招为主，建议家庭网络跑）
     "iguopin": True,      # 国聘（国企/央企，校招+社招）
     "yjs": True,          # 应届生求职网（校招聚合，SSR 可抓）
-    "chern": True,        # 化工英才网（化工安环垂直，Playwright）
+    "chern": False,       # 化工英才网（限流严格暂关，待优化）
     "zhaopin_xy": False,  # 智联校招频道（待接入）
 }
 
 # 云端 Actions 默认只跑这些源（智联对数据中心 IP 反爬，留本地跑）
-CLOUD_SOURCES = "iguopin,yjs,chern"
+CLOUD_SOURCES = "iguopin,yjs"
 
 # ============ 应届生求职网 ============
 # 安全科学与工程类专业栏目（按专业聚合校招职位）

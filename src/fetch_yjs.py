@@ -155,10 +155,35 @@ def fetch(pages: int = 1, progress=None) -> list:
         if progress:
             progress(f'[应届生网] 请求失败: {e}')
         return results
-    for rec in parse_list(html):
+    if not html:
+        if progress:
+            progress('[应届生网] 空响应')
+        return results
+    recs = parse_list(html)
+    kept, dropped = 0, 0
+    drop_reasons = {}
+    for rec in recs:
+        title = rec.get('title') or ''
+        if not title:
+            drop_reasons['无标题'] = drop_reasons.get('无标题', 0) + 1
+            dropped += 1
+            continue
+        if '校园大使' in title or '兼职' in title:
+            drop_reasons['校园大使/兼职'] = drop_reasons.get('校园大使/兼职', 0) + 1
+            dropped += 1
+            continue
+        from src.fetch import is_noise_title
+        if is_noise_title(title):
+            drop_reasons['IT噪声'] = drop_reasons.get('IT噪声', 0) + 1
+            dropped += 1
+            continue
         job = make_job(rec)
         if job:
             results.append(job)
+            kept += 1
+        else:
+            drop_reasons['make_job'] = drop_reasons.get('make_job', 0) + 1
+            dropped += 1
     if progress:
-        progress(f'[应届生网] 专业栏目抓到 {len(results)} 条')
+        progress(f'[应届生网] 记录 {len(recs)} 条 → 保留 {kept}，过滤 {dropped}（{drop_reasons}）')
     return results
