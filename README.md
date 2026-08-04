@@ -66,7 +66,7 @@ python run.py --backend playwright
    ```
 3. 仓库 Settings → **Pages** → Source 选 `Deploy from a branch` → 分支 `main` → 目录 `/docs` → Save
 4. 等 1-2 分钟，你的站点地址：`https://<用户名>.github.io/safety-job-hunter/`
-5. Actions 每天北京时间 07:30 自动抓取更新。可在 **Actions** 页面手动 `Run workflow` 立即测试一次
+5. Actions 每天北京时间 11:00 自动抓取更新。可在 **Actions** 页面手动 `Run workflow` 立即测试一次
 
 > ⚠️ 云端（GitHub 数据中心 IP）抓取智联可能被反爬拦截。工作流已内置失败自动开 Issue 通知，届时在本地电脑跑一次 `run_local.ps1` 补上即可（家庭宽带 IP 成功率远高于云端）。
 
@@ -92,7 +92,7 @@ python run.py --backend playwright
 - **校招识别词**：`CAMPUS_KEYWORDS`（标题含这些词标记为校招）
 - **证书高亮词**：`CERT_KEYWORDS`
 - **报考指南**：编辑 `guide.py`，重新运行 `python build_site.py`
-- **抓取时刻**：改 `.github/workflows/update.yml` 的 `cron`（UTC 时间，北京 = UTC+8）
+- **抓取时刻**：改 `.github/workflows/update.yml` 的 `cron`（当前北京时间 11:00 = UTC 03:00）
 
 ## 扩展新数据源
 

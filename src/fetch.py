@@ -93,7 +93,7 @@ def fetch_playwright(url: str, timeout: int = 60000, headless: bool = True,
 
 def fetch_page(url: str, backend: str = 'playwright', retry: int = 3,
                interval: tuple = (2, 5)) -> str:
-    """抓取单个 URL，失败重试。返回 HTML 或 None"""
+    """抓取单个 URL。验证页立即放弃（不重复耗超时）；网络错误才重试"""
     for attempt in range(retry):
         if backend == 'playwright':
             html = fetch_playwright(url)
@@ -101,6 +101,8 @@ def fetch_page(url: str, backend: str = 'playwright', retry: int = 3,
             html = fetch_chrome_dump(url)
         if html and not is_verify_page(html):
             return html
+        if html and is_verify_page(html):
+            return None  # 被反爬拦截：重试无意义，快速放弃
         wait = random.uniform(*interval) * (attempt + 1)
         time.sleep(wait)
     return None

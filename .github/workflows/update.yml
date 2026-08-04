@@ -3,8 +3,8 @@ name: daily-job-update
 
 on:
   schedule:
-    # 北京时间 07:30 = UTC 23:30（抓取时段，错开早高峰反爬压力）
-    - cron: '30 23 * * *'
+    # 北京时间 11:00 = UTC 03:00（用户指定更新时间）
+    - cron: '0 3 * * *'
   workflow_dispatch: {}   # 支持手动触发
 
 permissions:
@@ -27,10 +27,10 @@ jobs:
           pip install --quiet playwright
           python -m playwright install chromium --with-deps
 
-      - name: 抓取并更新
+      - name: 抓取并更新（云端只跑反爬友好的源，智联留本地）
         id: scrape
         run: |
-          python run.py --backend playwright --pages 2
+          python run.py --backend playwright --pages 2 --sources iguopin,yjs,chern
         continue-on-error: false
 
       - name: 提交更新

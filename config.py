@@ -40,10 +40,24 @@ CAMPUS_KEYWORDS = ["校招", "校园招聘", "应届", "2025届", "2026届", "20
 
 # ============ 数据源开关（True=启用） ============
 SOURCES = {
-    "zhaopin": True,      # 智联招聘主站（社招为主）
+    "zhaopin": True,      # 智联招聘主站（社招为主，建议家庭网络跑）
     "iguopin": True,      # 国聘（国企/央企，校招+社招）
-    "zhaopin_xy": True,   # 智联校招频道（校招）
+    "yjs": True,          # 应届生求职网（校招聚合，SSR 可抓）
+    "chern": True,        # 化工英才网（化工安环垂直，Playwright）
+    "zhaopin_xy": False,  # 智联校招频道（待接入）
 }
+
+# 云端 Actions 默认只跑这些源（智联对数据中心 IP 反爬，留本地跑）
+CLOUD_SOURCES = "iguopin,yjs,chern"
+
+# ============ 应届生求职网 ============
+# 安全科学与工程类专业栏目（按专业聚合校招职位）
+YJS_PROFESSION_URL = "https://www.yingjiesheng.com/zhuanye/anquankexue/"
+# 备用：按关键词搜索（待验证）
+YJS_SEARCH_URL = "https://www.yingjiesheng.com/search?q={kw}"
+
+# ============ 化工英才网 ============
+CHERN_SEARCH_URL = "https://www.chenhr.com/job/list/{kw}/"
 
 # ============ 国聘 API ============
 IGUOPIN_API = "https://gp-api.iguopin.com/api/jobs/v1/list"
