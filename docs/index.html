@@ -6,162 +6,219 @@
 <title>安全工程岗位雷达 · 每日更新</title>
 <style>
 :root{
-  --bg:#0d1117; --bg2:#11161d; --card:#161b22; --card2:#1c2330;
-  --border:#2d333b; --text:#e6edf3; --muted:#8b949e;
-  --accent:#ff7a18; --accent-soft:rgba(255,122,24,.14);
-  --blue:#2f81f7; --blue-soft:rgba(47,129,247,.14);
-  --green:#3fb950; --green-soft:rgba(63,185,80,.14);
-  --red:#f85149; --red-soft:rgba(248,81,73,.14);
-  --radius:14px;
+  --text:#1e2330; --muted:#6b7280;
+  --accent:#ff7a18; --accent-soft:#fff0e2;
+  --violet:#7c5cff; --violet-soft:#eee9ff;
+  --pink:#ff5da2; --pink-soft:#ffe9f3;
+  --green:#16a34a; --green-soft:#e3f6ea;
+  --red:#ef4444; --red-soft:#fdeaea;
+  --blue:#3b82f6; --blue-soft:#e5f0ff;
+  --amber:#f59e0b; --amber-soft:#fef3dd;
+  --card:rgba(255,255,255,.78);
+  --card-solid:#ffffff;
+  --border:rgba(255,255,255,.75);
+  --shadow:0 8px 28px rgba(99,74,180,.10);
+  --shadow-hover:0 14px 36px rgba(99,74,180,.16);
+  --radius:18px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:radial-gradient(1200px 500px at 20% -10%, #1a2332 0%, var(--bg) 55%) fixed;
+  min-height:100vh;
+  background:
+    radial-gradient(900px 500px at 85% -10%, #fde8ff 0%, transparent 60%),
+    radial-gradient(800px 480px at -10% 15%, #dcf3ff 0%, transparent 55%),
+    radial-gradient(700px 420px at 50% 110%, #ffe8d6 0%, transparent 60%),
+    linear-gradient(160deg,#f6f0ff 0%, #eef7ff 50%, #fdf2f8 100%);
+  background-attachment:fixed;
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  line-height:1.6; min-height:100vh;
+  line-height:1.6;
 }
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
-.container{max-width:1120px;margin:0 auto;padding:0 18px 60px}
+.container{max-width:1180px;margin:0 auto;padding:0 18px 64px}
 
 /* ===== Header ===== */
-header{padding:34px 0 8px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.logo{display:flex;align-items:center;gap:14px}
-.logo-icon{
-  width:52px;height:52px;border-radius:14px;flex:none;
-  background:linear-gradient(135deg,#ff7a18,#ff9a4d);
-  display:flex;align-items:center;justify-content:center;
-  font-size:28px;box-shadow:0 6px 24px rgba(255,122,24,.35);
+header{padding:38px 0 6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.brand{display:flex;align-items:center;gap:16px}
+.brand-icon{
+  width:58px;height:58px;border-radius:18px;flex:none;
+  background:linear-gradient(135deg,#ff7a18,#ff9a4d 55%,#ffd166);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+  box-shadow:0 10px 26px rgba(255,122,24,.38), inset 0 -3px 8px rgba(255,255,255,.35);
+  transform:rotate(-4deg);
 }
-.logo h1{font-size:26px;letter-spacing:.5px}
-.logo p{color:var(--muted);font-size:13px;margin-top:2px}
-.header-right{text-align:right;font-size:13px;color:var(--muted)}
-.header-right .upd{color:var(--accent);font-weight:600}
+.brand h1{
+  font-size:27px;font-weight:800;letter-spacing:.3px;
+  background:linear-gradient(120deg,#7c5cff 0%,#3b82f6 40%,#ff5da2 80%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.brand p{font-size:13px;color:var(--muted);margin-top:1px}
+.header-right{font-size:13px;color:var(--muted);text-align:right}
+.header-right .upd{color:var(--violet);font-weight:700}
 
 /* ===== Stats ===== */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:22px 0}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.stat .num{font-size:24px;font-weight:700;color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px;margin:24px 0 18px}
+.stat{
+  background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--border);border-radius:16px;padding:14px 16px;
+  box-shadow:var(--shadow);
+}
+.stat .num{font-size:25px;font-weight:800}
 .stat .num.orange{color:var(--accent)}
 .stat .num.green{color:var(--green)}
 .stat .num.blue{color:var(--blue)}
-.stat .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+.stat .num.violet{color:var(--violet)}
+.stat .lbl{font-size:12px;color:var(--muted);margin-top:1px}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{
+  padding:9px 22px;border-radius:999px;font-size:14px;cursor:pointer;color:var(--muted);
+  background:var(--card);backdrop-filter:blur(10px);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  user-select:none;transition:all .18s;
+}
+.tab:hover{transform:translateY(-1px)}
+.tab.on{
+  color:#fff;font-weight:700;
+  background:linear-gradient(120deg,#7c5cff,#5b8cff);
+  border-color:transparent;box-shadow:0 8px 20px rgba(124,92,255,.35);
+}
+.tab .cnt{font-weight:800;margin-left:4px;opacity:.9}
+#tab-guide{display:none}
 
 /* ===== Filters ===== */
 .filters{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:14px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  background:var(--card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  box-shadow:var(--shadow);
 }
-.search-box{flex:1 1 220px;position:relative}
+.search-box{flex:1 1 230px;position:relative}
 .search-box input{
-  width:100%;padding:9px 14px 9px 36px;border-radius:10px;
-  background:var(--bg);border:1px solid var(--border);color:var(--text);
-  font-size:14px;outline:none;transition:border .2s;
+  width:100%;padding:10px 14px 10px 38px;border-radius:12px;
+  background:rgba(255,255,255,.85);border:1.5px solid #e5e0f0;color:var(--text);
+  font-size:14px;outline:none;transition:border .2s, box-shadow .2s;
 }
-.search-box input:focus{border-color:var(--accent)}
-.search-box::before{content:"🔍";position:absolute;left:11px;top:8px;font-size:14px;opacity:.6}
+.search-box input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,92,255,.15)}
+.search-box::before{content:"🔍";position:absolute;left:12px;top:9px;font-size:15px;opacity:.6}
 select{
-  padding:9px 12px;border-radius:10px;background:var(--bg);
-  border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;cursor:pointer;
+  padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.85);
+  border:1.5px solid #e5e0f0;color:var(--text);font-size:13px;outline:none;cursor:pointer;
+  transition:border .2s;
 }
-select:hover{border-color:var(--accent)}
-.toggles{display:flex;gap:6px;flex-wrap:wrap}
+select:hover{border-color:var(--violet)}
+.toggles{display:flex;gap:7px;flex-wrap:wrap}
 .tog{
-  padding:7px 12px;border-radius:999px;font-size:12.5px;cursor:pointer;user-select:none;
-  border:1px solid var(--border);color:var(--muted);background:var(--bg);transition:all .15s;
+  padding:8px 13px;border-radius:999px;font-size:12.5px;cursor:pointer;user-select:none;
+  border:1.5px solid #e5e0f0;color:var(--muted);background:rgba(255,255,255,.8);
+  transition:all .15s;
 }
-.tog.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.tog:hover{transform:translateY(-1px)}
+.tog.on{background:var(--violet-soft);border-color:var(--violet);color:var(--violet);font-weight:700}
 .tog.on.green{background:var(--green-soft);border-color:var(--green);color:var(--green)}
 .tog.on.blue{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
-.result-info{font-size:12.5px;color:var(--muted);padding:0 4px 10px}
+.tog.on.red{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+.result-info{font-size:13px;color:var(--muted);padding:2px 6px 12px}
+.result-info b{color:var(--violet)}
 
-/* ===== Job cards ===== */
+/* ===== Job grid ===== */
+#list{display:grid;grid-template-columns:repeat(auto-fill,minmax(345px,1fr));gap:14px}
 .job{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-  padding:16px 18px;margin-bottom:10px;transition:border-color .15s, transform .15s;
+  background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:var(--shadow);transition:transform .18s, box-shadow .18s;
 }
-.job:hover{border-color:#3d444d;transform:translateY(-1px)}
-.job-top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start}
-.job-title{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.job:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.job-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:7px;flex-wrap:wrap;line-height:1.4}
 .job-title a{color:var(--text)}
-.job-title a:hover{color:var(--accent);text-decoration:none}
-.badge{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
-.b-new{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
-.b-campus{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
-.b-intern{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
-.b-src{background:var(--card2);color:var(--muted);border:1px solid var(--border)}
-.b-cert{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
-.b-out{background:var(--red-soft);color:var(--red);border:1px solid var(--red)}
-.b-soe{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue)}
-.salary{font-size:19px;font-weight:800;color:var(--accent);white-space:nowrap}
-.salary.muted{color:var(--muted);font-weight:600}
-.company{margin-top:6px;font-size:13.5px;color:var(--muted)}
-.company a{color:var(--muted)}
-.company a:hover{color:var(--blue)}
-.company .meta{opacity:.75;margin-left:6px}
-.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.m-chip{
-  font-size:12px;padding:3px 10px;border-radius:8px;
-  background:var(--bg2);border:1px solid var(--border);color:var(--text);
+.job-title a:hover{color:var(--violet);text-decoration:none}
+.badge{font-size:10.5px;padding:2.5px 9px;border-radius:999px;font-weight:700;white-space:nowrap;letter-spacing:.2px}
+.b-new{background:var(--green-soft);color:var(--green)}
+.b-campus{background:var(--violet-soft);color:var(--violet)}
+.b-intern{background:var(--amber-soft);color:var(--amber)}
+.b-cert{background:var(--accent-soft);color:var(--accent)}
+.b-out{background:var(--red-soft);color:var(--red)}
+.b-soe{background:var(--blue-soft);color:var(--blue)}
+.b-src{background:#f0f1f4;color:#6b7280}
+.salary{font-size:18px;font-weight:800;color:var(--accent);white-space:nowrap}
+.salary.muted{color:var(--muted);font-weight:700}
+.company{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.company .dot{width:4px;height:4px;border-radius:50%;background:#c9c4d8}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{
+  font-size:11.5px;padding:3px 10px;border-radius:9px;
+  background:rgba(255,255,255,.75);border:1px solid #e8e3f2;color:#55536a;
 }
-.m-chip .k{color:var(--muted);margin-right:4px}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.tag{font-size:11.5px;padding:2px 9px;border-radius:6px;background:var(--card2);color:var(--muted)}
-.tag.cert{background:var(--accent-soft);color:var(--accent)}
-.job-foot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:8px}
-.seen{font-size:11.5px;color:var(--muted)}
+.chip .k{color:var(--muted);margin-right:3px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;padding:2.5px 9px;border-radius:8px;background:#f2f0fa;color:#6a6780}
+.tag.cert{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.job-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:2px}
+.seen{font-size:11px;color:var(--muted)}
 .apply{
-  display:inline-block;padding:7px 18px;border-radius:9px;font-size:13px;font-weight:600;
-  background:linear-gradient(135deg,#ff7a18,#ff9a4d);color:#fff;transition:filter .15s;
+  display:inline-block;padding:8px 18px;border-radius:11px;font-size:13px;font-weight:700;color:#fff;
+  background:linear-gradient(120deg,#ff7a18,#ff9a4d);
+  box-shadow:0 6px 16px rgba(255,122,24,.35);transition:filter .15s, transform .15s;
 }
-.apply:hover{filter:brightness(1.1);text-decoration:none}
-.empty{text-align:center;color:var(--muted);padding:60px 0;font-size:15px}
+.apply:hover{filter:brightness(1.08);transform:translateY(-1px);text-decoration:none}
+.empty{text-align:center;color:var(--muted);padding:70px 0;font-size:15px}
 
-/* ===== Tabs ===== */
-.tabs{display:flex;gap:6px;margin:28px 0 14px;border-bottom:1px solid var(--border);padding-bottom:10px}
-.tab{
-  padding:8px 20px;border-radius:10px;font-size:14px;cursor:pointer;color:var(--muted);
-  background:transparent;border:1px solid transparent;user-select:none;
+/* ===== Pagination ===== */
+.pager{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:22px;flex-wrap:wrap}
+.page-btn{
+  min-width:36px;height:36px;padding:0 10px;border-radius:11px;font-size:13.5px;cursor:pointer;
+  background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--border);
+  color:var(--text);box-shadow:var(--shadow);transition:all .15s;user-select:none;
+  display:inline-flex;align-items:center;justify-content:center;
 }
-.tab.on{color:var(--text);background:var(--card);border-color:var(--border);font-weight:600}
-.tab .cnt{color:var(--accent);font-weight:700;margin-left:4px}
-#tab-guide{display:none}
+.page-btn:hover:not(.off){transform:translateY(-1px);border-color:var(--violet)}
+.page-btn.cur{
+  background:linear-gradient(120deg,#7c5cff,#5b8cff);color:#fff;border-color:transparent;
+  box-shadow:0 6px 16px rgba(124,92,255,.35);font-weight:800;
+}
+.page-btn.off{opacity:.35;cursor:default}
+.page-info{font-size:12.5px;color:var(--muted);margin-left:8px}
 
 /* ===== Guide ===== */
-.g-notice{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px}
-.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
-.g-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column}
-.g-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.g-icon{font-size:24px}
-.g-head h3{font-size:16px}
-.g-badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:600}
-.g-row{display:flex;gap:10px;padding:7px 0;border-top:1px dashed var(--border);font-size:13px}
-.g-k{flex:none;min-width:62px;color:var(--accent);font-weight:600}
+.g-notice{font-size:12.5px;color:#7a6f8f;background:var(--amber-soft);border:1px solid #f5e0b8;border-radius:12px;padding:10px 14px;margin-bottom:14px}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}
+.g-card{
+  background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);
+}
+.g-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.g-icon{font-size:26px}
+.g-head h3{font-size:16px;font-weight:800}
+.g-badge{font-size:10.5px;padding:2.5px 9px;border-radius:999px;background:var(--violet-soft);color:var(--violet);font-weight:700}
+.g-row{display:flex;gap:10px;padding:8px 0;border-top:1px dashed #e8e2f4;font-size:13px}
+.g-k{flex:none;min-width:64px;color:var(--violet);font-weight:700}
 .g-v{color:var(--text)}
 
-footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px;line-height:2}
-footer .src{color:var(--muted)}
-@media (max-width:640px){
-  .logo h1{font-size:21px}
+footer{margin-top:44px;text-align:center;color:var(--muted);font-size:12px;line-height:2}
+@media (max-width:760px){
+  .brand h1{font-size:22px}
   .salary{font-size:16px}
   .job-title{font-size:15px}
+  #list{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
-    <div class="logo">
-      <div class="logo-icon">⛑️</div>
+    <div class="brand">
+      <div class="brand-icon">⛑️</div>
       <div>
         <h1>安全工程岗位雷达</h1>
-        <p>全国安全类岗位每日自动更新 · 学历/地点/要求/待遇/投递一站看齐</p>
+        <p>全国安全类岗位每日更新 · 校招 / 社招 · 学历 / 待遇 / 投递一站看齐</p>
       </div>
     </div>
     <div class="header-right">
-      <div>数据更新：<span class="upd" id="upd-time">--</span></div>
-      <div>来源：智联招聘公开搜索页</div>
+      <div>数据更新 <span class="upd" id="upd-time">--</span></div>
+      <div>智联 · 国聘 · 应届生网</div>
     </div>
   </header>
 
@@ -218,6 +275,7 @@ footer .src{color:var(--muted)}
     </div>
     <div class="result-info" id="result-info"></div>
     <div id="list"></div>
+    <div class="pager" id="pager"></div>
   </div>
 
   <div id="tab-guide">
@@ -225,9 +283,9 @@ footer .src{color:var(--muted)}
   </div>
 
   <footer>
-    <div class="src">数据来源：智联招聘公开搜索页（安全工程师/注安/EHS/消防等 22 个关键词，全国范围）</div>
-    <div>仅供求职筛选参考，投递前请至招聘方官方页面核实 · 本页数据每日自动更新</div>
-    <div>🛡️ 安全工程岗位雷达 · 自动构建于 <span id="foot-time">--</span></div>
+    <div>数据来源：智联招聘 · 国聘 · 应届生求职网（安全工程师 / 注安 / EHS / 消防等 36 个关键词，全国范围）</div>
+    <div>仅供求职筛选参考，投递前请至招聘方官方页面核实 · 每日自动更新</div>
+    <div>🛡️ 安全工程岗位雷达 · 构建于 <span id="foot-time">--</span></div>
   </footer>
 </div>
 
@@ -238,6 +296,7 @@ const data = window.__DATA__;
 const jobs = data.jobs || [];
 const meta = data.meta || {};
 const today = meta.updated_date || '';
+const PER_PAGE = 30;
 
 /* ---------- 统计 ---------- */
 (function renderStats(){
@@ -249,10 +308,10 @@ const today = meta.updated_date || '';
   document.getElementById('foot-time').textContent = meta.updated_at || '--';
   document.getElementById('stats').innerHTML = [
     ['总岗位', jobs.length, ''],
-    ['校招岗位', nCampus, 'orange'],
+    ['校招岗位', nCampus, 'violet'],
     ['今日新增', nNew, 'green'],
     ['覆盖城市', cities.size, 'blue'],
-    ['需证岗位', certs, ''],
+    ['需证岗位', certs, 'orange'],
   ].map(s=>`<div class="stat"><div class="num ${s[2]}">${s[1]}</div><div class="lbl">${s[0]}</div></div>`).join('');
   document.getElementById('cnt-jobs').textContent = jobs.length;
 })();
@@ -271,11 +330,11 @@ const today = meta.updated_date || '';
 
 /* ---------- 状态 ---------- */
 const state = {
-  q:'', type:'', city:'', edu:'', exp:'', sal:'', sort:'new',
+  q:'', type:'', city:'', edu:'', exp:'', sal:'', sort:'new', page:1,
   onlyNew:false, onlyCert:false, onlyOut:false, onlySOE:false
 };
 
-/* ---------- 筛选与渲染 ---------- */
+/* ---------- 筛选 / 渲染 / 分页 ---------- */
 function esc(s){
   return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
@@ -313,65 +372,79 @@ function applyFilters(){
   }
   return list;
 }
+function cardHtml(j){
+  const badges = [];
+  if(j.job_type==='校招') badges.push('<span class="badge b-campus">🎓 校招</span>');
+  if(j.job_type==='实习') badges.push('<span class="badge b-intern">🧪 实习</span>');
+  if(j._is_new) badges.push('<span class="badge b-new">🆕 今日新增</span>');
+  if(j.has_cert) badges.push('<span class="badge b-cert">📜 需证书</span>');
+  if(j.outsource) badges.push('<span class="badge b-out">🌍 外派岗</span>');
+  if((j.company_type||'').includes('国企')) badges.push('<span class="badge b-soe">🏢 国企</span>');
+  if(j.source && j.source!=='zhaopin') badges.push(`<span class="badge b-src">${esc(srcName(j.source))}</span>`);
+  const sal = j.salary ? `<span class="salary">${esc(friendlySal(j.salary_text, j.salary))}</span>`
+                       : '<span class="salary muted">面议</span>';
+  const chips = [];
+  if(j.education) chips.push(`<span class="chip"><span class="k">学历</span>${esc(j.education)}</span>`);
+  if(j.experience) chips.push(`<span class="chip"><span class="k">经验</span>${esc(j.experience)}</span>`);
+  if(j.location) chips.push(`<span class="chip"><span class="k">地点</span>${esc(j.location)}</span>`);
+  if(j.industry) chips.push(`<span class="chip"><span class="k">行业</span>${esc(j.industry)}</span>`);
+  const tags = (j.tags||[]).slice(0,10).map(t=>
+    `<span class="tag ${isCert(t)?'cert':''}">${esc(t)}</span>`).join('');
+  const cmeta = [j.company_type, j.company_size].filter(Boolean).join(' · ');
+  return `<div class="job">
+    <div class="job-title"><a href="${esc(j.link)}" target="_blank" rel="noopener">${esc(j.title)}</a>${badges.join('')}</div>
+    <div class="company"><span>${esc(j.company||'—')}</span>${cmeta?`<span class="dot"></span><span>${esc(cmeta)}</span>`:''}</div>
+    <div class="chips">${chips.join('')}</div>
+    ${tags?`<div class="tags">${tags}</div>`:''}
+    <div class="job-foot">
+      <div>
+        ${sal}
+        <div class="seen">发现 ${esc(j.first_seen||'')}${j.end_time?' · ⏰ 截止 '+esc(j.end_time):''}</div>
+      </div>
+      <a class="apply" href="${esc(j.link)}" target="_blank" rel="noopener">投递 →</a>
+    </div>
+  </div>`;
+}
+function pagerHtml(total, pages){
+  const cur = state.page;
+  let html = '';
+  html += `<span class="page-btn ${cur<=1?'off':''}" data-p="${cur-1}">‹</span>`;
+  let from = Math.max(1, cur-2), to = Math.min(pages, cur+2);
+  if(from>1) html += `<span class="page-btn" data-p="1">1</span>${from>2?'<span class="page-info">…</span>':''}`;
+  for(let i=from;i<=to;i++) html += `<span class="page-btn ${i===cur?'cur':''}" data-p="${i}">${i}</span>`;
+  if(to<pages) html += `${to<pages-1?'<span class="page-info">…</span>':''}<span class="page-btn" data-p="${pages}">${pages}</span>`;
+  html += `<span class="page-btn ${cur>=pages?'off':''}" data-p="${cur+1}">›</span>`;
+  html += `<span class="page-info">第 ${cur} / ${pages} 页 · 共 ${total} 条</span>`;
+  return html;
+}
 function render(){
   const list = applyFilters();
-  document.getElementById('result-info').textContent =
-    `共 ${list.length} 个岗位` + (list.length ? `（今日新增 ${list.filter(j=>j._is_new).length}）` : '，换个条件试试');
-  const el = document.getElementById('list');
-  if(!list.length){ el.innerHTML = '<div class="empty">没有符合条件的岗位，放宽筛选条件试试</div>'; return; }
-  el.innerHTML = list.map(j=>{
-    const badges = [];
-    if(j.job_type==='校招') badges.push('<span class="badge b-campus">🎓 校招</span>');
-    if(j.job_type==='实习') badges.push('<span class="badge b-intern">🧪 实习</span>');
-    if(j._is_new) badges.push('<span class="badge b-new">🆕 今日新增</span>');
-    if(j.has_cert) badges.push('<span class="badge b-cert">📜 需证书</span>');
-    if(j.outsource) badges.push('<span class="badge b-out">🌍 外派岗</span>');
-    if((j.company_type||'').includes('国企')) badges.push('<span class="badge b-soe">🏢 国企</span>');
-    if(j.source && j.source!=='zhaopin') badges.push(`<span class="badge b-src">${esc(srcName(j.source))}</span>`);
-    const sal = j.salary ? `<span class="salary">${esc(friendlySal(j.salary_text, j.salary))}</span>`
-                         : '<span class="salary muted">面议</span>';
-    const chips = [];
-    if(j.education) chips.push(`<span class="m-chip"><span class="k">学历</span>${esc(j.education)}</span>`);
-    if(j.experience) chips.push(`<span class="m-chip"><span class="k">经验</span>${esc(j.experience)}</span>`);
-    if(j.location) chips.push(`<span class="m-chip"><span class="k">地点</span>${esc(j.location)}</span>`);
-    if(j.industry) chips.push(`<span class="m-chip"><span class="k">行业</span>${esc(j.industry)}</span>`);
-    const tags = (j.tags||[]).slice(0,12).map(t=>
-      `<span class="tag ${isCert(t)?'cert':''}">${esc(t)}</span>`).join('');
-    const companyMeta = [j.company_type, j.company_size].filter(Boolean).join(' · ');
-    return `<div class="job">
-      <div class="job-top">
-        <div>
-          <div class="job-title"><a href="${esc(j.link)}" target="_blank" rel="noopener">${esc(j.title)}</a>${badges.join('')}</div>
-          <div class="company"><a href="${esc(j.company_url||'#')}" target="_blank" rel="noopener">${esc(j.company||'—')}</a>${companyMeta?`<span class="meta">${esc(companyMeta)}</span>`:''}</div>
-        </div>
-        ${sal}
-      </div>
-      <div class="meta-row">${chips.join('')}</div>
-      ${tags?`<div class="tags">${tags}</div>`:''}
-      <div class="job-foot">
-        <span class="seen">发现于 ${esc(j.first_seen||'')}${j.first_seen!==j.last_seen?' · 更新于 '+esc(j.last_seen):''}${j.end_time?' · ⏰ 报名截止 '+esc(j.end_time):''} · 命中「${esc(j.keyword||'')}」</span>
-        <a class="apply" href="${esc(j.link)}" target="_blank" rel="noopener">查看并投递 →</a>
-      </div>
-    </div>`;
-  }).join('');
+  const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+  if(state.page > pages) state.page = pages;
+  if(state.page < 1) state.page = 1;
+  const slice = list.slice((state.page-1)*PER_PAGE, state.page*PER_PAGE);
+  const nNew = list.filter(j=>j._is_new).length;
+  document.getElementById('result-info').innerHTML =
+    list.length ? `共 <b>${list.length}</b> 个岗位${nNew?`（其中今日新增 <b>${nNew}</b>）`:''}` : '没有符合条件的岗位，放宽筛选试试';
+  document.getElementById('list').innerHTML = slice.length
+    ? slice.map(cardHtml).join('') : '<div class="empty">🫧 没有符合条件的岗位，换个条件试试</div>';
+  document.getElementById('pager').innerHTML = list.length ? pagerHtml(list.length, pages) : '';
 }
-const CERT_RE = /注册安全工程师|注安|安全评价师|安评师|安全员|消防|特种作业|安全管理资格/;
-function isCert(t){ return CERT_RE.test(t); }
-function srcName(s){ return ({iguopin:'国聘'})[s] || s; }
-function friendlySal(text, sal){
-  if(sal[0]>=10000 && sal[1]>=10000){
-    const f = v => v%10000===0 ? v/10000+'万' : (v/10000).toFixed(1)+'万';
-    return `${f(sal[0])}-${f(sal[1])}/月`;
-  }
-  return `${Math.round(sal[0]/1000)}k-${Math.round(sal[1]/1000)}k/月`;
-}
+document.getElementById('pager').addEventListener('click', e=>{
+  const btn = e.target.closest('.page-btn');
+  if(!btn || btn.classList.contains('off')) return;
+  state.page = parseInt(btn.dataset.p, 10);
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+function resetPage(){ state.page = 1; }
 
 /* ---------- 事件绑定 ---------- */
-document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; render(); });
+document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; resetPage(); render(); });
 ['f-type','f-city','f-edu','f-exp','f-sal','f-sort'].forEach(id=>{
   document.getElementById(id).addEventListener('change', e=>{
     const k = id.replace('f-','');
-    state[k] = e.target.value; render();
+    state[k] = e.target.value; resetPage(); render();
   });
 });
 document.querySelectorAll('.tog').forEach(t=>{
@@ -379,7 +452,7 @@ document.querySelectorAll('.tog').forEach(t=>{
     const k = t.dataset.k;
     state[k] = !state[k];
     t.classList.toggle('on', state[k]);
-    render();
+    resetPage(); render();
   });
 });
 document.querySelectorAll('.tab').forEach(t=>{
@@ -391,6 +464,17 @@ document.querySelectorAll('.tab').forEach(t=>{
     document.getElementById('tab-guide').style.display = which==='guide'?'':'none';
   });
 });
+
+const CERT_RE = /注册安全工程师|注安|安全评价师|安评师|安全员|消防|特种作业|安全管理资格/;
+function isCert(t){ return CERT_RE.test(t); }
+function srcName(s){ return ({iguopin:'国聘',yjs:'应届生'})[s] || s; }
+function friendlySal(text, sal){
+  if(sal[0]>=10000 && sal[1]>=10000){
+    const f = v => v%10000===0 ? v/10000+'万' : (v/10000).toFixed(1)+'万';
+    return `${f(sal[0])}-${f(sal[1])}/月`;
+  }
+  return `${Math.round(sal[0]/1000)}k-${Math.round(sal[1]/1000)}k/月`;
+}
 
 render();
 </script>

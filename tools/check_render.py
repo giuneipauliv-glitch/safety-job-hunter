@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""渲染验证：Chrome 渲染本地网页 -> 检查 JS 是否成功执行"""
+"""新界面渲染验证：分页/卡片/样式"""
 import subprocess
 import re
 import sys
@@ -10,7 +10,7 @@ CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 cmd = [
     CHROME, '--headless=new', '--disable-gpu', '--no-first-run',
     '--disable-crash-reporter', '--disable-extensions',
-    '--user-data-dir=E:\\work space\\.tools\\chrome-dump-check',
+    '--user-data-dir=E:\\work space\\.tools\\chrome-check2',
     '--virtual-time-budget=6000',
     '--dump-dom', 'file:///E:/work space/safety-job-hunter/docs/index.html',
 ]
@@ -18,16 +18,16 @@ p = subprocess.run(cmd, capture_output=True, timeout=90)
 html = p.stdout.decode('utf-8', 'ignore')
 
 checks = {
-    'job卡片渲染数量': len(re.findall(r'class="job"', html)),
-    '统计条渲染': len(re.findall(r'class="stat"', html)),
-    '薪资高亮': len(re.findall(r'class="salary', html)),
-    '徽章(新增/证书/外派)': len(re.findall(r'class="badge', html)),
+    '卡片数(应为30)': len(re.findall(r'class="job"', html)),
+    '分页控件存在': len(re.findall(r'page-btn', html)),
+    '分页信息': len(re.findall(r'第 \d+ / \d+ 页', html)),
+    '统计条': len(re.findall(r'class="stat"', html)),
     '投递按钮': len(re.findall(r'class="apply"', html)),
     '报考指南卡片': len(re.findall(r'class="g-card"', html)),
-    '城市下拉': len(re.findall(r'option', html)),
-    '结果计数': len(re.findall(r'result-info', html)),
+    '玻璃卡片样式': html.count('backdrop-filter'),
+    '渐变背景': html.count('radial-gradient'),
 }
 for k, v in checks.items():
     print(f'{k}: {v}')
-ok = checks['job卡片渲染数量'] >= 8 and checks['报考指南卡片'] == 4
+ok = checks['卡片数(应为30)'] == 30 and checks['分页控件存在'] >= 10 and checks['报考指南卡片'] == 4
 print('RENDER', 'OK' if ok else 'PROBLEM')
