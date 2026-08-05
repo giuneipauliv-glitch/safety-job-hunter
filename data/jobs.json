@@ -1,12 +1,244 @@
 {
  "meta": {
-  "updated_at": "2026-08-04 14:35:05",
-  "updated_date": "2026-08-04",
-  "total": 1381,
-  "new_today": 0,
+  "updated_at": "2026-08-05 15:42:31",
+  "updated_date": "2026-08-05",
+  "total": 1388,
+  "new_today": 7,
   "source": "智联招聘"
  },
  "jobs": [
+  {
+   "job_id": "CCL1493900440J40926230112",
+   "title": "注册安全工程师",
+   "salary": [
+    8000,
+    10000
+   ],
+   "salary_text": "8000-10000元",
+   "education": "本科",
+   "edu_level": 4,
+   "experience": "3-5年",
+   "exp_level": 3,
+   "location": "北京·朝阳",
+   "city": "北京",
+   "district": "朝阳",
+   "company": "北京中安启信注册安全工程师事务所有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CZL1493900440.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "民营",
+   "company_size": "20-99人",
+   "industry": "技术服务",
+   "tags": [
+    "注册安全工程师",
+    "中级注册安全工程师"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CCL1493900440J40926230112.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": false,
+   "has_cert": true,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CCL1414133040J40876404805",
+   "title": "兼职三方安全工程师",
+   "salary": [
+    0,
+    1
+   ],
+   "salary_text": "5-10年",
+   "education": "本科",
+   "edu_level": 4,
+   "experience": "",
+   "exp_level": -1,
+   "location": "济南·槐荫",
+   "city": "济南",
+   "district": "槐荫",
+   "company": "山东安诚安全科技有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CZL1414133040.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "民营",
+   "company_size": "20-99人",
+   "industry": "咨询服务",
+   "tags": [
+    "500元/天",
+    "消防管理",
+    "注册安全工程师"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CCL1414133040J40876404805.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": true,
+   "has_cert": true,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "实习",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CCL1414133040J40793583705",
+   "title": "水运安全工程师",
+   "salary": [
+    8000,
+    12000
+   ],
+   "salary_text": "8000-12000元",
+   "education": "本科",
+   "edu_level": 4,
+   "experience": "3-5年",
+   "exp_level": 3,
+   "location": "济南·历城·孙村",
+   "city": "济南",
+   "district": "历城",
+   "company": "山东安诚安全科技有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CZL1414133040.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "民营",
+   "company_size": "20-99人",
+   "industry": "咨询服务",
+   "tags": [
+    "安全管理",
+    "注册安全工程师"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CCL1414133040J40793583705.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": false,
+   "has_cert": true,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CC628139980J40867051911",
+   "title": "石化安全工程师",
+   "salary": [
+    9000,
+    16000
+   ],
+   "salary_text": "9000-16000元",
+   "education": "学历不限",
+   "edu_level": 0,
+   "experience": "经验不限",
+   "exp_level": 0,
+   "location": "南京·六合·龙池",
+   "city": "南京",
+   "district": "六合",
+   "company": "南京周全安全咨询有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CZ628139980.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "股份制企业",
+   "company_size": "20-99人",
+   "industry": "咨询服务",
+   "tags": [],
+   "link": "http://www.zhaopin.com/jobdetail/CC628139980J40867051911.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": true,
+   "has_cert": false,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CC274690480J41009604602",
+   "title": "安全工程师（化工，危险品运输方向）",
+   "salary": [
+    6000,
+    10000
+   ],
+   "salary_text": "6000-10000元",
+   "education": "本科",
+   "edu_level": 4,
+   "experience": "3-5年",
+   "exp_level": 3,
+   "location": "天津·西青·张家窝",
+   "city": "天津",
+   "district": "西青",
+   "company": "天津筠轩安全工程技术有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CZ274690480.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "民营",
+   "company_size": "20-99人",
+   "industry": "技术服务",
+   "tags": [
+    "安全管理",
+    "注册安全工程师"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CC274690480J41009604602.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": false,
+   "has_cert": true,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CC246255480J40960175315",
+   "title": "驻场安全工程师（在建）",
+   "salary": [
+    10000,
+    14000
+   ],
+   "salary_text": "1-1.4万",
+   "education": "大专",
+   "edu_level": 3,
+   "experience": "5-10年",
+   "exp_level": 4,
+   "location": "深圳·南山·粤海",
+   "city": "深圳",
+   "district": "南山",
+   "company": "佳保安全",
+   "company_url": "https://www.zhaopin.com/companydetail/CZ246255480.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "",
+   "company_size": "300-499人",
+   "industry": "技术服务",
+   "tags": [
+    "房建工程",
+    "中级注册安全工程师",
+    "专员",
+    "现场安全管控",
+    "隐患闭环管理",
+    "施工工艺安全"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CC246255480J40960175315.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": false,
+   "has_cert": true,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
+  {
+   "job_id": "CC204834110J40994160202",
+   "title": "安全工程师",
+   "salary": [
+    8000,
+    10000
+   ],
+   "salary_text": "8000-10000元",
+   "education": "本科",
+   "edu_level": 4,
+   "experience": "3-5年",
+   "exp_level": 3,
+   "location": "武汉·青山·红卫路",
+   "city": "武汉",
+   "district": "青山",
+   "company": "中钢武汉安全环保研究院股份有限公司",
+   "company_url": "https://www.zhaopin.com/companydetail/CC204834117.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "company_type": "国企",
+   "company_size": "300-499人",
+   "industry": "咨询服务",
+   "tags": [
+    "智能制造"
+   ],
+   "link": "http://www.zhaopin.com/jobdetail/CC204834110J40994160202.htm?refcode=4019&srccode=401903&preactionid=c30d9926-e223-49df-b383-0e6d710850c2",
+   "outsource": true,
+   "has_cert": false,
+   "keyword": "安全工程师",
+   "source": "zhaopin",
+   "job_type": "社招",
+   "first_seen": "2026-08-05",
+   "last_seen": "2026-08-05"
+  },
   {
    "job_id": "yjs_008022900",
    "title": "2027校园招聘",
@@ -7496,7 +7728,7 @@
    "source": "zhaopin",
    "job_type": "实习",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1414133040J40778882605",
@@ -7532,7 +7764,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1414133040J40726183805",
@@ -7895,7 +8127,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1408959330J40300446215",
@@ -8229,7 +8461,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1400948980J41025656504",
@@ -10251,7 +10483,7 @@
    "outsource": false,
    "has_cert": false,
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1346269380J40303524413",
@@ -11343,7 +11575,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CCL1306294290J40544216706",
@@ -16236,7 +16468,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC827965530J40752002513",
@@ -16517,7 +16749,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC823214740J40867035414",
@@ -16816,7 +17048,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC811708530J40902019612",
@@ -19166,7 +19398,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC637584130J40827175316",
@@ -19703,7 +19935,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC628139980J40773695411",
@@ -19736,7 +19968,7 @@
    "source": "zhaopin",
    "job_type": "社招",
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC627962920J40864736110",
@@ -23081,7 +23313,7 @@
    "outsource": false,
    "has_cert": false,
    "first_seen": "2026-08-04",
-   "last_seen": "2026-08-04"
+   "last_seen": "2026-08-05"
   },
   {
    "job_id": "CC526632430J40942777508",
