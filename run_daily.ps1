@@ -1,7 +1,6 @@
-# Daily full update: all sources headless (no popup windows), auto push
-# 全源无头抓取：智联(登录态)/国聘/应届生网，不弹任何窗口，后台静默运行
-# 用法：powershell -ExecutionPolicy Bypass -File run_daily.ps1
-# 配合 Windows 计划任务每天 11:15 运行（智联登录态过期时需重跑 login_zhaopin.py）
+# Daily full update: all sources headless (no popup), auto push to GitHub
+# ASCII-only on purpose: Windows PowerShell 5.1 mis-parses UTF-8 Chinese (GBK issue)
+# Usage: powershell -ExecutionPolicy Bypass -File run_daily.ps1
 $ErrorActionPreference = "Continue"
 [Console]::OutputEncoding = [Console]::InputEncoding = [Text.UTF8Encoding]::new($false)
 Set-Location $PSScriptRoot
@@ -12,14 +11,14 @@ if ($cmd -and $cmd.Source -and $cmd.Source -notlike "*WindowsApps*") { $py = $cm
 if (-not $py) { foreach ($c in @("E:\work space\.tools\py312\python.exe", "$env:USERPROFILE\.tools\py312\python.exe")) { if (Test-Path $c) { $py = $c; break } } }
 if (-not $py) { Write-Host "ERROR: python not found"; exit 1 }
 
-Write-Host "=== STEP 1/2: 无头全量抓取（智联/国聘/应届生网，不弹窗）==="
+Write-Host "=== STEP 1/2: headless scrape (zhaopin/iguopin/yjs) ==="
 & $py run.py --backend chrome_dump
 $code = $LASTEXITCODE
 if ($code -eq 2) {
-    Write-Host "[警告] 智联可能被拦（登录态过期？），可运行 login_zhaopin.py 重新登录后重试"
+    Write-Host "[WARN] zhaopin blocked (login expired?). run login_zhaopin.py to re-login."
 }
 
-Write-Host "=== STEP 2/2: 推送数据到 GitHub ==="
+Write-Host "=== STEP 2/2: push to GitHub ==="
 $gitExe = ""
 foreach ($c in @("C:\Program Files\HanaAgent\resources\git\mingw64\bin\git.exe",
                  "C:\Program Files\Git\cmd\git.exe")) { if (Test-Path $c) { $gitExe = $c; break } }
@@ -31,10 +30,15 @@ if ($gitExe -and (Test-Path "E:\work space\.gh_token")) {
     & $gitExe add data docs
     & $gitExe commit -m "daily data $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>&1 | Out-Null
     & $gitExe push origin main --force 2>&1 | Select-Object -Last 2
+    $pushCode = $LASTEXITCODE
     & $gitExe remote set-url origin "https://github.com/giuneipauliv-glitch/safety-job-hunter.git"
-    Write-Host "数据已推送"
+    if ($pushCode -eq 0) {
+        Write-Host "pushed OK"
+    } else {
+        Write-Host "PUSH FAILED (exit $pushCode): network/token issue, run push_only.ps1 later"
+    }
 } else {
-    Write-Host "未找到令牌或 git，跳过推送"
+    Write-Host "token/git missing, skip push"
 }
 
 Write-Host ""
