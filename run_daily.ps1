@@ -17,6 +17,15 @@ $code = $LASTEXITCODE
 if ($code -eq 2) {
     Write-Host "[WARN] zhaopin blocked (login expired?). run login_zhaopin.py to re-login."
 }
+# 登录态自检：智联校招 0 条 = 校招登录态失效，醒目提示
+if (Test-Path "logs\last_run.json") {
+    $lr = Get-Content "logs\last_run.json" -Raw | ConvertFrom-Json
+    $xy = $lr.sources.'zhaopin_xy'
+    if ($null -eq $xy -or $xy -eq 0) {
+        Write-Host "`n!!! WARNING: ZHAOPIN CAMPUS LOGIN EXPIRED !!!"
+        Write-Host "!!! run: python tools/login_zhaopin.py to re-login !!!`n"
+    }
+}
 
 Write-Host "=== STEP 1.5/3: sync to Feishu (no VPN needed) ==="
 if (Test-Path "E:\work space\safety-job-hunter\feishu_config.json") {

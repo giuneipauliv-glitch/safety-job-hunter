@@ -125,11 +125,14 @@ def main():
     build_site.build(merged)
 
     # 抓取摘要（供 workflow 日志/通知）
+    from collections import Counter
+    src_counts = dict(Counter(j.get('source', '?') for j in fresh))
     summary = {
         'updated_at': merged['meta']['updated_at'],
         'total': merged['meta']['total'],
         'new_today': merged['meta']['new_today'],
         'raw_fetched': len(fresh),
+        'sources': src_counts,
     }
     os.makedirs('logs', exist_ok=True)
     with open('logs/last_run.json', 'w', encoding='utf-8') as f:
