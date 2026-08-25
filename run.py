@@ -14,6 +14,8 @@ import os
 import sys
 import time
 
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # 固定工作目录到项目根，保证所有相对路径一致
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -23,6 +25,7 @@ from config import (KEYWORDS, CORE_KEYWORDS, EXTRA_KEYWORDS, PAGES_CORE,  # noqa
 from src.fetch import fetch_all as fetch_zhaopin  # noqa: E402
 from src.fetch_iguopin import fetch as fetch_iguopin  # noqa: E402
 from src.fetch_yjs import fetch as fetch_yjs  # noqa: E402
+from src.fetch_zhaopin_xy import fetch as fetch_zhaopin_xy  # noqa: E402
 from src.fetch_chern import fetch as fetch_chern  # noqa: E402
 from src.store import load_jobs, merge_jobs, save_jobs  # noqa: E402
 import build_site  # noqa: E402
@@ -99,10 +102,10 @@ def main():
         print(f'[应届生网] 原始 {len(fresh)} 条')
         all_fresh.extend(fresh)
 
-    # 4) 化工英才网（化工安环垂直）
-    if SOURCES.get('chern', True):
-        fresh = fetch_chern(None, 1, progress=lambda m: print(f'  {m}'))
-        print(f'[化工英才网] 原始 {len(fresh)} 条')
+    # 4) 智联校招频道（校招，需登录态，仅本地）
+    if SOURCES.get('zhaopin_xy', True):
+        fresh = fetch_zhaopin_xy(None, 2, progress=lambda m: print(f'  {m}'))
+        print(f'[智联校招] 原始 {len(fresh)} 条')
         all_fresh.extend(fresh)
 
     fresh = all_fresh

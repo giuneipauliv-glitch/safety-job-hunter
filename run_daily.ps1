@@ -38,15 +38,22 @@ if ($gitExe -and (Test-Path "E:\work space\.gh_token")) {
     & $gitExe commit -m "daily data $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>&1 | Out-Null
     & $gitExe remote remove origin 2>$null | Out-Null
     & $gitExe remote add origin $remote 2>$null | Out-Null
-    # push with retry (network blips self-heal)
+    # push with retry: proxy first, fallback direct, then retry
     $pushCode = 1
     for ($i = 1; $i -le 3; $i++) {
         & $gitExe push origin main --force 2>&1 | Select-Object -Last 1 | Out-Null
         $pushCode = $LASTEXITCODE
         if ($pushCode -eq 0) { break }
+        # proxy failed -> try direct (no proxy) once
+        if ($i -eq 1) {
+            Write-Host "proxy push failed, try direct..."
+            & $gitExe -c http.proxy= -c https.proxy= push origin main --force 2>&1 | Select-Object -Last 1 | Out-Null
+            $pushCode = $LASTEXITCODE
+            if ($pushCode -eq 0) { break }
+        }
         if ($i -lt 3) {
-            Write-Host "push attempt $i failed, retry in 300s..."
-            Start-Sleep -Seconds 300
+            Write-Host "push attempt $i failed, retry in 180s..."
+            Start-Sleep -Seconds 180
         }
     }
     & $gitExe remote set-url origin "https://github.com/giuneipauliv-glitch/safety-job-hunter.git"
