@@ -241,9 +241,16 @@ footer{margin-top:44px;text-align:center;color:var(--muted);font-size:12px;line-
       <select id="f-city"><option value="">全部城市</option></select>
       <select id="f-edu">
         <option value="">全部学历</option>
+        <option value="5">硕士及以上</option>
         <option value="4">本科及以上</option>
         <option value="3">大专及以上</option>
         <option value="0">学历不限</option>
+      </select>
+      <select id="f-org">
+        <option value="">全部企业性质</option>
+        <option value="国企">🏢 国企</option>
+        <option value="私企">🏬 私企</option>
+        <option value="外企">🌐 外企</option>
       </select>
       <select id="f-exp">
         <option value="">全部经验</option>
@@ -330,7 +337,7 @@ const PER_PAGE = 30;
 
 /* ---------- 状态 ---------- */
 const state = {
-  q:'', type:'', city:'', edu:'', exp:'', sal:'', sort:'new', page:1,
+  q:'', type:'', city:'', edu:'', org:'', exp:'', sal:'', sort:'new', page:1,
   onlyNew:false, onlyCert:false, onlyOut:false, onlySOE:false
 };
 
@@ -345,16 +352,25 @@ function matchSal(j, range){
   if(!s) return false;
   return s[0] >= lo && s[0] <= hi;
 }
+function matchOrg(j, org){
+  if(!org) return true;
+  const t = (j.company_type||'') + (j.company||'');
+  if(org==='国企') return t.includes('国企') || t.includes('国有') || t.includes('央企');
+  if(org==='外企') return t.includes('外商') || t.includes('外资') || t.includes('外企') || t.includes('合资');
+  return !t.includes('国企') && !t.includes('外商') && !t.includes('外资');
+}
 function applyFilters(){
   const q = state.q.trim().toLowerCase();
   let list = jobs.filter(j=>{
     if(state.type && j.job_type !== state.type) return false;
     if(state.city && j.city !== state.city) return false;
     if(state.edu !== ''){
+      if(state.edu === '5' && j.edu_level < 5) return false;
       if(state.edu === '4' && j.edu_level < 4) return false;
       if(state.edu === '3' && j.edu_level < 3) return false;
       if(state.edu === '0' && j.edu_level !== 0) return false;
     }
+    if(!matchOrg(j, state.org)) return false;
     if(state.exp !== '' && j.exp_level !== Number(state.exp)) return false;
     if(!matchSal(j, state.sal)) return false;
     if(state.onlyNew && !j._is_new) return false;
@@ -441,7 +457,7 @@ function resetPage(){ state.page = 1; }
 
 /* ---------- 事件绑定 ---------- */
 document.getElementById('q').addEventListener('input', e=>{ state.q=e.target.value; resetPage(); render(); });
-['f-type','f-city','f-edu','f-exp','f-sal','f-sort'].forEach(id=>{
+['f-type','f-city','f-edu','f-org','f-exp','f-sal','f-sort'].forEach(id=>{
   document.getElementById(id).addEventListener('change', e=>{
     const k = id.replace('f-','');
     state[k] = e.target.value; resetPage(); render();
