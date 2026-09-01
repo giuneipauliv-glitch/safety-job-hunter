@@ -352,12 +352,23 @@ function matchSal(j, range){
   if(!s) return false;
   return s[0] >= lo && s[0] <= hi;
 }
+function orgType(j){
+  const t = (j.company_type||'');
+  const c = (j.company||'');
+  // 国企（优先看性质字段）
+  if(/国企|国有|央企|国办|国营|事业单位/.test(t)) return '国企';
+  // 外企：明确中外性质才算
+  if(/外商|外资|外企|中外合资|中外合作/.test(t)) return '外企';
+  if(/外商|外资|中外合资|中外合作/.test(c)) return '外企';
+  // 私企：明确民营/私营/股份制
+  if(/民营|私营|私企|股份制|股份有限/.test(t)) return '私企';
+  // 公司名兑底：明显国企标识
+  if(/中国.{0,8}(集团|石油|石化|电网|铁路|烟草|化工|建筑|能源|电建|能建|中建|中铁|中交|中化|中核|航天|航空|兵器|船舶|电子|移动|联通|电信|银行|保险)/.test(c)) return '国企';
+  return '未知';
+}
 function matchOrg(j, org){
   if(!org) return true;
-  const t = (j.company_type||'') + (j.company||'');
-  if(org==='国企') return t.includes('国企') || t.includes('国有') || t.includes('央企');
-  if(org==='外企') return t.includes('外商') || t.includes('外资') || t.includes('外企') || t.includes('合资');
-  return !t.includes('国企') && !t.includes('外商') && !t.includes('外资');
+  return orgType(j) === org;
 }
 function applyFilters(){
   const q = state.q.trim().toLowerCase();
@@ -376,7 +387,7 @@ function applyFilters(){
     if(state.onlyNew && !j._is_new) return false;
     if(state.onlyCert && !j.has_cert) return false;
     if(state.onlyOut && !j.outsource) return false;
-    if(state.onlySOE && !(j.company_type||'').includes('国企')) return false;
+    if(state.onlySOE && orgType(j)!=='国企') return false;
     if(q){
       const hay = [j.title,j.company,j.city,j.location,j.industry,(j.tags||[]).join(' ')].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
@@ -395,7 +406,7 @@ function cardHtml(j){
   if(j._is_new) badges.push('<span class="badge b-new">🆕 今日新增</span>');
   if(j.has_cert) badges.push('<span class="badge b-cert">📜 需证书</span>');
   if(j.outsource) badges.push('<span class="badge b-out">🌍 外派岗</span>');
-  if((j.company_type||'').includes('国企')) badges.push('<span class="badge b-soe">🏢 国企</span>');
+  if(orgType(j)==='国企') badges.push('<span class="badge b-soe">🏢 国企</span>');
   if(j.source && j.source!=='zhaopin') badges.push(`<span class="badge b-src">${esc(srcName(j.source))}</span>`);
   const sal = j.salary ? `<span class="salary">${esc(friendlySal(j.salary_text, j.salary))}</span>`
                        : '<span class="salary muted">面议</span>';
