@@ -42,7 +42,7 @@ jobs:
             echo "无数据变化，跳过提交"
           else
             git commit -m "daily update $(date +'%Y-%m-%d')"
-            git push
+            git push origin main --force
           fi
 
       - name: 抓取失败自动开 Issue 通知
